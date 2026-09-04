@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tipul</title>
+<style>
+:root{
+  --navy:#0f233c;
+  --teal:#169e91;
+  --teal-soft:#eaf7f5;
+  --blue:#3478d4;
+  --bg:#f6f8fb;
+  --card:#ffffff;
+  --text:#283441;
+  --muted:#748190;
+  --line:#e4eaf0;
+  --danger:#c94850;
+  --warn:#a96b00;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+button,input,textarea,select{font:inherit}
+.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}
+.sidebar{
+  background:var(--navy);
+  color:#fff;
+  padding:28px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+.brand-mark{
+  width:38px;height:38px;border-radius:12px;background:var(--teal);
+  display:grid;place-items:center;font-size:22px
+}
+.role-switch{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:6px;display:grid;grid-template-columns:1fr 1fr;gap:6px
+}
+.role-switch button{
+  border:0;border-radius:10px;padding:9px 8px;background:transparent;color:#c7d6e5;cursor:pointer
+}
+.role-switch button.active{background:#fff;color:var(--navy);font-weight:700}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav button{
+  color:#c8d6e4;background:transparent;border:0;text-align:left;
+  padding:12px 13px;border-radius:12px;cursor:pointer
+}
+.nav button.active,.nav button:hover{background:rgba(255,255,255,.09);color:#fff}
+.sidebar-bottom{margin-top:auto;color:#9eb2c5;font-size:12px;line-height:1.5}
+
+.main{padding:26px 30px 40px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.eyebrow{font-size:12px;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+h1{margin:5px 0 0;font-size:28px;color:var(--navy)}
+.avatar{width:42px;height:42px;border-radius:50%;background:#dbe8f5;display:grid;place-items:center;font-weight:800;color:var(--navy)}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:20px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;box-shadow:0 8px 22px rgba(21,47,76,.045)
+}
+.card h2{font-size:16px;margin:0 0 14px;color:var(--navy)}
+.muted{color:var(--muted)}
+.patient-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.patient-id{display:flex;gap:14px;align-items:center}
+.patient-photo{width:54px;height:54px;border-radius:16px;background:var(--teal-soft);display:grid;place-items:center;font-weight:800;color:var(--teal)}
+.patient-name{font-size:20px;font-weight:800;color:var(--navy)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:12px;padding:6px 9px;border-radius:999px;background:#eef3f7;color:#526273}
+.tag.alert{background:#fff0f0;color:var(--danger)}
+.tag.good{background:#ecf8f3;color:#237b58}
+
+.message{
+  margin-top:18px;border-left:4px solid var(--teal);background:#f8fbfc;border-radius:12px;
+  padding:15px 16px;line-height:1.55
+}
+.message small{display:block;color:var(--muted);margin-bottom:7px}
+
+.ai-card{
+  margin-top:18px;background:var(--navy);color:#fff;border-radius:18px;padding:20px
+}
+.ai-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.ai-head strong{font-size:17px}
+.ai-badge{background:rgba(22,158,145,.18);color:#7de0d6;border:1px solid rgba(125,224,214,.25);padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800}
+.summary-row{display:grid;grid-template-columns:135px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.09)}
+.summary-row:last-child{border-bottom:0}
+.summary-row span:first-child{color:#a9bfd1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.summary-row b{font-size:14px}
+.summary-row .warn{color:#ffd58a}
+
+.history{display:grid;gap:11px}
+.history-item{padding:12px 0;border-bottom:1px solid var(--line)}
+.history-item:last-child{border-bottom:0}
+.history-item .date{font-size:11px;color:var(--teal);font-weight:800;text-transform:uppercase}
+.history-item strong{display:block;margin:4px 0;color:var(--navy)}
+
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.action{
+  border:1px solid var(--line);background:#fff;border-radius:13px;padding:13px;
+  cursor:pointer;text-align:left;color:var(--navy);font-weight:700
+}
+.action.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.action:hover{transform:translateY(-1px)}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:12px}
+
+.patient-view{display:none}
+.patient-shell{max-width:940px;margin:auto}
+.hero{
+  background:linear-gradient(135deg,var(--navy),#173c64);
+  color:#fff;border-radius:24px;padding:28px;margin-bottom:20px
+}
+.hero h2{margin:0 0 8px;font-size:26px}
+.hero p{margin:0;color:#cfdeea}
+.followup-form label{display:block;font-size:12px;font-weight:800;color:var(--navy);margin-bottom:7px}
+textarea{
+  width:100%;min-height:145px;border:1px solid var(--line);border-radius:14px;padding:14px;resize:vertical;outline:none
+}
+textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(22,158,145,.08)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+select,input{
+  width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff
+}
+.submit{
+  margin-top:16px;background:var(--teal);color:#fff;border:0;border-radius:12px;padding:13px 18px;font-weight:800;cursor:pointer
+}
+.next-step{display:flex;gap:12px;align-items:center;padding:15px;border-radius:14px;background:var(--teal-soft);margin-top:12px}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.toast{
+  position:fixed;right:24px;bottom:24px;background:var(--navy);color:#fff;padding:13px 16px;border-radius:12px;
+  opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s
+}
+.toast.show{opacity:1;transform:translateY(0)}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:static;flex-direction:row;align-items:center;flex-wrap:wrap;padding:16px}
+  .nav{display:none}.sidebar-bottom{display:none}.role-switch{margin-left:auto}
+  .grid{grid-template-columns:1fr}
+  .main{padding:20px}
+}
+@media (max-width:560px){
+  .role-switch{width:100%;margin-left:0}
+  .form-row,.actions{grid-template-columns:1fr}
+  .summary-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✚</div>Tipul</div>
+    <div class="role-switch">
+      <button id="doctorBtn" class="active" onclick="showRole('doctor')">Doctor</button>
+      <button id="patientBtn" onclick="showRole('patient')">Patient</button>
+    </div>
+    <div class="nav">
+      <button class="active">Overview</button>
+      <button>Follow-ups</button>
+      <button>Patients</button>
+      <button>Appointments</button>
+      <button>Referrals</button>
+      <button>Pharmacy</button>
+    </div>
+    <div class="sidebar-bottom">
+      Prototype only<br/>
+      AI assists clinicians and does not make final medical decisions.
+    </div>
+  </aside>
+
+  <main class="main">
+    <section id="doctorView">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Doctor Dashboard</div>
+          <h1>Follow-up review</h1>
+        </div>
+        <div class="avatar">AO</div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <div class="card">
+            <div class="patient-head">
+              <div class="patient-id">
+                <div class="patient-photo">MA</div>
+                <div>
+                  <div class="patient-name">Michael Adeyemi</div>
+                  <div class="muted">Cardiology • Patient ID CB-20419</div>
+                  <div class="tags">
+                    <span class="tag good">Existing patient</span>
+                    <span class="tag alert">New symptom reported</span>
+                  </div>
+                </div>
+              </div>
+              <div class="muted" style="font-size:12px">Last visit: 21 Aug 2026</div>
+            </div>
+
+            <div class="message">
+              <small>Patient's latest message • Today, 9:14 AM</small>
+              “The chest pain is much better, but I have been feeling dizzy since Tuesday.
+              I am taking the tablets every day and I still need the ECG reviewed.”
+            </div>
+
+            <div class="ai-card">
+              <div class="ai-head">
+                <strong>AI Follow-up Brief</strong>
+                <span class="ai-badge">CURRENT + HISTORY</span>
+              </div>
+              <div class="summary-row"><span>Current update</span><b>Chest discomfort improved</b></div>
+              <div class="summary-row"><span>New change</span><b class="warn">Intermittent dizziness for 3 days</b></div>
+              <div class="summary-row"><span>Medication</span><b>Patient reports adherence</b></div>
+              <div class="summary-row"><span>Relevant history</span><b>Hypertension • prior chest discomfort</b></div>
+              <div class="summary-row"><span>Previous data</span><b>BP 156/94 mmHg • ECG requested at last visit</b></div>
+              <div class="summary-row"><span>Pending</span><b>ECG review</b></div>
+              <div class="summary-row"><span>AI highlight</span><b class="warn">New dizziness differs from last recorded symptoms</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h2>Relevant patient history</h2>
+            <div class="history">
+              <div class="history-item">
+                <div class="date">21 Aug 2026</div>
+                <strong>Cardiology consultation</strong>
+                <div class="muted">Chest discomfort • BP 156/94 • ECG ordered</div>
+              </div>
+              <div class="history-item">
+                <div class="date">03 Jul 2026</div>
+                <strong>General outpatient visit</strong>
+                <div class="muted">Elevated blood pressure noted</div>
+              </div>
+              <div class="history-item">
+                <div class="date">Medication</div>
+                <strong>Active prescriptions</strong>
+                <div class="muted">Medication A • Medication B</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:20px">
+            <h2>Doctor actions</h2>
+            <div class="actions">
+              <button class="action primary" onclick="toast('Response sent to patient')">Reply</button>
+              <button class="action" onclick="toast('Test request started')">Order test</button>
+              <button class="action" onclick="toast('Appointment workflow opened')">Book visit</button>
+              <button class="action" onclick="toast('Referral workflow opened')">Refer</button>
+              <button class="action" onclick="toast('Prescription workflow opened')">Prescription</button>
+              <button class="action" onclick="toast('Patient marked for urgent review')">Escalate</button>
+            </div>
+            <div class="note">
+              The clinician reviews the original message and records before taking any medical action.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="patientView" class="patient-view">
+      <div class="patient-shell">
+        <div class="topbar">
+          <div>
+            <div class="eyebrow">Patient Portal</div>
+            <h1>Your follow-up care</h1>
+          </div>
+          <div class="avatar">MA</div>
+        </div>
+
+        <div class="hero">
+          <h2>Welcome back, Michael</h2>
+          <p>Your cardiology team can review updates from home and tell you when an in-person visit is needed.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card followup-form">
+            <h2>Send a follow-up update</h2>
+            <label>Tell your doctor how you have been feeling</label>
+            <textarea placeholder="Example: The chest pain is better, but I have been feeling dizzy since Tuesday..."></textarea>
+            <div class="form-row">
+              <div>
+                <label>Medication</label>
+                <select>
+                  <option>Taking as prescribed</option>
+                  <option>Missed some doses</option>
+                  <option>Stopped taking medication</option>
+                </select>
+              </div>
+              <div>
+                <label>How urgent does it feel?</label>
+                <select>
+                  <option>Routine follow-up</option>
+                  <option>I am concerned</option>
+                  <option>I need help soon</option>
+                </select>
+              </div>
+            </div>
+            <button class="submit" onclick="toast('Follow-up update submitted')">Send update</button>
+            <div class="note">For emergencies or severe symptoms, use your hospital's emergency pathway instead of routine follow-up messaging.</div>
+          </div>
+
+          <div>
+            <div class="card">
+              <h2>Your next step</h2>
+              <div class="next-step">
+                <span class="status-dot"></span>
+                <div>
+                  <strong>ECG review pending</strong>
+                  <div class="muted" style="font-size:12px;margin-top:3px">Your cardiology team will review the result.</div>
+                </div>
+              </div>
+              <div class="next-step">
+                <span class="status-dot"></span>
+                <div>
+                  <strong>Follow-up window</strong>
+                  <div class="muted" style="font-size:12px;margin-top:3px">Recommended within 7 days.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:20px">
+              <h2>Quick access</h2>
+              <div class="actions">
+                <button class="action" onclick="toast('Appointments opened')">Appointments</button>
+                <button class="action" onclick="toast('Test results opened')">Test results</button>
+                <button class="action" onclick="toast('Pharmacy opened')">Pharmacy</button>
+                <button class="action" onclick="toast('Referrals opened')">Referrals</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="toast">Done</div>
+
+<script>
+function showRole(role){
+  const doctor = document.getElementById('doctorView');
+  const patient = document.getElementById('patientView');
+  const db = document.getElementById('doctorBtn');
+  const pb = document.getElementById('patientBtn');
+  if(role === 'doctor'){
+    doctor.style.display='block'; patient.style.display='none';
+    db.classList.add('active'); pb.classList.remove('active');
+  }else{
+    doctor.style.display='none'; patient.style.display='block';
+    pb.classList.add('active'); db.classList.remove('active');
+  }
+}
+function toast(message){
+  const el=document.getElementById('toast');
+  el.textContent=message;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),1800);
+}
+</script>
+</body>
+</html>
